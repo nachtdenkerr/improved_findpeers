@@ -10,6 +10,7 @@ import { MetricsStorage } from './metrics'
 import compression from 'compression'
 import request from 'request'
 import { isLinguisticallySimilar } from './util'
+import calendarRoute from './routes/calendar'
 
 function errorPage(res: Response, error: string): void {
 	const settings = {
@@ -60,6 +61,7 @@ const metrics = new MetricsStorage()
 
 export async function startWebserver(port: number) {
 	const app = express()
+	app.use("/calendar", calendarRoute);
 
 	app.use(
 		session({
