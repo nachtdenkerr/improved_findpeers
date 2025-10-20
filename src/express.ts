@@ -10,6 +10,8 @@ import { MetricsStorage } from './metrics'
 import compression from 'compression'
 import request from 'request'
 import { isLinguisticallySimilar } from './util'
+import earlyProjectsRoutes from './routes/early-projects-express';
+
 
 function errorPage(res: Response, error: string): void {
 	const settings = {
@@ -170,7 +172,7 @@ export async function startWebserver(port: number) {
 	app.set('views', path.join(__dirname, '../views'))
 	app.set('viewengine', 'ejs')
 	app.use('/public', express.static('public/'))
-
+	app.use('/', earlyProjectsRoutes);
 	await app.listen(port)
 	log(1, `${process.env['NODE_ENV'] ?? 'development'} app ready on http://localhost:${port}`)
 }

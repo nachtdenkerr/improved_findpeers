@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Early Projects</title>
+  <style>
+    body {
+      font-family: monospace;
+      color-scheme: dark;
+      padding: 32px;
+    }
+    .project {
+      margin: 30px 0;
+    }
+    input, select, button {
+      font-family: inherit;
+      font-size: 1em;
+      margin-right: 10px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Early Project Subscriptions</h1>
+<p>Subscribe to projects you're interested in — even before you can start them officially.</p>
+
+<form method="POST" action="/early-projects/add">
+  <input type="text" name="username" placeholder="Enter your name" required>
+  <select name="project" required>
+    <% projects.forEach(project => { %>
+      <option value="<%= project.name %>"><%= project.name %></option>
+    <% }) %>
+  </select>
+  <button type="submit">Subscribe</button>
+</form>
+
+<hr />
+
+<% projects.forEach(project => { %>
+  <div class="project">
+    <h2><%= project.name %></h2>
+    <% if (subscriptions[project.name]?.length) { %>
+      <ul>
+        <% subscriptions[project.name].forEach(user => { %>
+          <li><%= user %></li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <small>No one subscribed yet.</small>
+    <% } %>
+  </div>
+<% }) %>
+
+</body>
+</html>
