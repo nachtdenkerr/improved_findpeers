@@ -19,7 +19,7 @@ function msUntilNextPull(): number {
 	return nextPull
 }
 
-;(async () => {
+; (async () => {
 	const port = parseInt(process.env['PORT'] || '8080')
 	await startWebserver(port)
 
